@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    min-height:100vh;
+    background-color:#F0E5DC;
+    background-image:
+      radial-gradient(ellipse at 0% 0%, rgba(244,198,111,0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at 100% 0%, rgba(236,191,49,0.4) 0%, transparent 45%),
+      radial-gradient(ellipse at 100% 100%, rgba(244,198,111,0.5) 0%, transparent 50%),
+      radial-gradient(ellipse at 0% 100%, rgba(236,191,49,0.4) 0%, transparent 45%);
+    font-family:'Cormorant Garamond',Georgia,serif;
+    overflow-x:hidden;
+  }
+  .page { max-width:700px; margin:0 auto; padding:48px 24px 64px; }
+
+  /* Announcement */
+  .announcement-wrap { margin-bottom:20px; border-radius:12px; border:2px solid #ECBF31; overflow:hidden; box-shadow:0 8px 48px rgba(236,191,49,0.3); }
+  .ann-body { background:#F0E5DC; padding:32px 44px 34px; position:relative; overflow:hidden; }
+  .ann-lbar { position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(to bottom,transparent,#ECBF31,rgba(236,191,49,0.35),transparent); }
+  .ann-rbar { position:absolute; top:0; right:0; width:5px; height:100%; background:linear-gradient(to bottom,transparent,#ECBF31,rgba(236,191,49,0.35),transparent); }
+  .ann-portrait-wrap { display:flex; justify-content:center; margin-bottom:18px; position:relative; z-index:1; width:100%; }
+  .ann-portrait-frame { width:160px; height:160px; min-width:160px; min-height:160px; border-radius:50%; border:2px solid #ECBF31; padding:4px; background:rgba(236,191,49,0.12); position:relative; box-shadow:0 0 0 1px rgba(236,191,49,0.4),0 0 28px rgba(236,191,49,0.3); }
+  .ann-portrait-inner { width:100%; height:100%; border-radius:50%; overflow:hidden; background:#F4C66F; display:block; }
+  .ann-portrait-inner img { width:100%; height:100%; object-fit:cover; object-position:center top; border-radius:50%; display:block; max-width:100%; }
+  .ann-pring  { position:absolute; inset:-8px; border-radius:50%; border:0.5px solid rgba(236,191,49,0.5); }
+  .ann-pring2 { position:absolute; inset:-16px; border-radius:50%; border:0.5px solid rgba(236,191,49,0.25); }
+  @keyframes spin { 0%{transform:rotate(0deg)}100%{transform:rotate(360deg)} }
+  .ann-phalo { position:absolute; inset:-20px; border-radius:50%; border:1px dashed rgba(236,191,49,0.4); animation:spin 12s linear infinite; }
+  .ann-headline { font-family:'Cinzel',serif; font-size:18px; font-weight:600; color:#ECBF31; text-align:center; line-height:1.5; letter-spacing:.04em; margin-bottom:20px; position:relative; z-index:1; }
+  .ann-headline em { font-style:normal; color:#ECBF31; font-family:'Cinzel',serif; font-size:18px; font-weight:600; }
+  .ann-div { display:flex; align-items:center; gap:10px; margin:0 auto 20px; max-width:320px; }
+  .ann-div-line { flex:1; height:.5px; background:linear-gradient(90deg,transparent,rgba(236,191,49,0.7),transparent); }
+  .ann-bodytext { font-family:'EB Garamond',serif; font-size:18px; color:#5A0F1C; text-align:center; line-height:1.85; margin-bottom:20px; }
+  .ann-bodytext strong { color:#ECBF31; font-weight:600; }
+  .ann-cta { font-family:'Cormorant Garamond',serif; font-size:17px; font-style:italic; color:#5A0F1C; text-align:center; line-height:1.7; }
+  .ann-cta strong { color:#ECBF31; font-style:normal; font-weight:700; font-size:18px; }
+  .ann-bot-bar { background:linear-gradient(90deg,#ECBF31,#F4C66F,#ECBF31); height:3px; }
+
+  /* Hero Banner */
+  .hero-banner { border-radius:14px 14px 0 0; overflow:hidden; position:relative; border:2px solid #ECBF31; border-bottom:none; }
+  .banner-svg { width:100%; display:block; }
+  .banner-overlay { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:36px 32px; text-align:center; }
+  .banner-title { font-family:'Cinzel',serif; font-size:23px; font-weight:600; color:#F0E5DC; letter-spacing:.07em; line-height:1.35; margin-bottom:7px; }
+  .banner-sub { font-family:'Cinzel',serif; font-size:23px; font-weight:600; color:#F0E5DC; letter-spacing:.07em; }
+
+  /* Divider */
+  .div-bar { display:flex; align-items:center; gap:10px; padding:9px 24px; background:linear-gradient(90deg,#ECBF31,#F4C66F,#ECBF31); border-left:2px solid #ECBF31; border-right:2px solid #ECBF31; }
+  .div-line { flex:1; height:.5px; background:linear-gradient(90deg,transparent,#F0E5DC,transparent); }
+
+  /* Form Card */
+  .form-card { background:linear-gradient(160deg,#ECBF31 0%,#F4C66F 55%,#ECBF31 100%); border:2px solid #ECBF31; border-top:none; border-radius:0 0 14px 14px; padding:40px 48px 52px; position:relative; overflow:hidden; box-shadow:0 10px 50px rgba(236,191,49,0.3); }
+  .fc-lbar { position:absolute; top:0; left:0; width:5px; height:100%; background:linear-gradient(to bottom,transparent,rgba(240,229,220,0.4),transparent); }
+  .fc-rbar { position:absolute; top:0; right:0; width:5px; height:100%; background:linear-gradient(to bottom,transparent,rgba(240,229,220,0.4),transparent); }
+
+  /* Fields */
+  .field-group { margin-bottom:22px; }
+  .field-label { display:block; font-family:'Cinzel',serif; font-size:11px; letter-spacing:.14em; color:rgba(90,15,28,0.6); text-transform:uppercase; margin-bottom:8px; font-weight:400; }
+  .field-input { width:100%; background:rgba(240,229,220,0.2); border:1.5px solid rgba(90,15,28,0.4); border-radius:4px; padding:12px 16px; font-family:'Cormorant Garamond',serif; font-size:16px; color:rgba(90,15,28,0.8); outline:none; transition:border-color .25s,background .25s; resize:none; }
+  .field-input::placeholder { color:rgba(90,15,28,0.35); font-style:italic; }
+  .field-input:focus { border-color:rgba(90,15,28,0.7); background:rgba(240,229,220,0.3); }
+  select.field-input { appearance:none; -webkit-appearance:none; cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(90,15,28,0.6)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px; background-color:rgba(240,229,220,0.2); font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; color:rgba(90,15,28,0.35); font-weight:400; }
+
+  .fields-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .fields-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+  /* Radio */
+  .checkbox-group { display:flex; gap:22px; align-items:center; margin-top:4px; }
+  .checkbox-label { display:flex; align-items:center; gap:8px; cursor:pointer; }
+  .checkbox-label input[type="radio"] { appearance:none; -webkit-appearance:none; width:16px; height:16px; border-radius:50%; border:1.5px solid rgba(90,15,28,0.4); background:rgba(240,229,220,0.2); cursor:pointer; flex-shrink:0; position:relative; transition:all .2s; }
+  .checkbox-label input[type="radio"]:checked { border-color:rgba(90,15,28,0.7); background:rgba(90,15,28,0.15); }
+  .checkbox-label input[type="radio"]:checked::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:7px; height:7px; border-radius:50%; background:rgba(90,15,28,0.6); }
+  .checkbox-text { font-family:'Cinzel',serif; font-size:11px; letter-spacing:.14em; color:rgba(90,15,28,0.6); font-weight:400; text-transform:uppercase; }
+
+  /* Submit */
+  .submit-wrap { display:flex; justify-content:center; margin-top:10px; }
+  .submit-btn { padding:14px 40px; background:linear-gradient(135deg,#ECBF31,#F4C66F,#ECBF31); border:1.5px solid rgba(90,15,28,0.4); border-radius:6px; font-family:'Cinzel',serif; font-size:12px; letter-spacing:.22em; color:#F0E5DC; cursor:pointer; text-transform:uppercase; font-weight:600; box-shadow:0 4px 20px rgba(236,191,49,0.5); transition:all .3s; }
+  .submit-btn:hover { box-shadow:0 6px 28px rgba(236,191,49,0.7); transform:translateY(-1px); }
+  .submit-btn:disabled { opacity:0.6; cursor:not-allowed; }
+  .form-message { display:none; margin-top:20px; padding:16px 20px; border-radius:6px; text-align:center; font-family:'Cinzel',serif; font-size:12px; letter-spacing:.1em; }
+  .form-message.success { background:rgba(240,229,220,0.3); border:1px solid rgba(90,15,28,0.4); color:rgba(90,15,28,0.8); }
+  .form-message.error { background:rgba(240,229,220,0.2); border:1px solid rgba(90,15,28,0.3); color:rgba(90,15,28,0.8); }
+
+  @media(max-width:520px){ .form-card{padding:28px 20px 36px} .fields-row{grid-template-columns:1fr} .fields-row-3{grid-template-columns:1fr} .banner-title{font-size:17px} .ann-body{padding:24px 20px 26px} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Announcement -->
+  <div class="announcement-wrap">
+    <div class="ann-body">
+      <div class="ann-lbar"></div>
+      <div class="ann-rbar"></div>
+      <div class="ann-portrait-wrap">
+        <div class="ann-portrait-frame">
+          <div class="ann-portrait-inner">
+            <img src="https://i.imgur.com/noxJd6T.jpeg" alt="Param Krupalu Dev" referrerpolicy="no-referrer" loading="eager">
+          </div>
+          <div class="ann-pring"></div>
+          <div class="ann-pring2"></div>
+          <div class="ann-phalo"></div>
+        </div>
+      </div>
+      <div class="ann-headline">We all are <em>eagerly awaiting</em><br>the divine arrival of Pujya Gurudevshri in the US!</div>
+      <div class="ann-div"><div class="ann-div-line"></div><div class="ann-div-line"></div></div>
+      <div class="ann-bodytext">During Pujya Gurudevshri's visit from <strong>Monday, June 29</strong> to <strong>Sunday, July 12,</strong> there may be a blessed opportunity for <strong>Northeast mumukshus</strong> to receive the grace of Pratishtha.</div>
+      <div class="ann-cta">If you are interested, please fill out this<br><strong>Request Form</strong> by <strong>Wednesday, April 15</strong></div>
+    </div>
+    <div class="ann-bot-bar"></div>
+  </div>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <svg class="banner-svg" viewBox="0 0 660 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ECBF31"/><stop offset="50%" stop-color="#F4C66F"/><stop offset="100%" stop-color="#ECBF31"/></linearGradient>
+        <linearGradient id="wl" x1="0" y1="0.5" x2="1" y2="0.5"><stop offset="0%" stop-color="#F0E5DC" stop-opacity="0.15"/><stop offset="100%" stop-color="#F0E5DC" stop-opacity="0"/></linearGradient>
+        <linearGradient id="wr" x1="1" y1="0.5" x2="0" y2="0.5"><stop offset="0%" stop-color="#F0E5DC" stop-opacity="0.15"/><stop offset="100%" stop-color="#F0E5DC" stop-opacity="0"/></linearGradient>
+      </defs>
+      <rect width="660" height="240" fill="url(#bg)"/>
+      <rect width="200" height="240" fill="url(#wl)"/>
+      <rect x="460" width="200" height="240" fill="url(#wr)"/>
+      <line x1="28" y1="12" x2="632" y2="12" stroke="#F0E5DC" stroke-width="0.7" opacity="0.7"/>
+      <line x1="28" y1="228" x2="632" y2="228" stroke="#F0E5DC" stroke-width="0.7" opacity="0.7"/>
+      <line x1="28" y1="12" x2="28" y2="228" stroke="#F0E5DC" stroke-width="0.6" opacity="0.55"/>
+      <line x1="632" y1="12" x2="632" y2="228" stroke="#F0E5DC" stroke-width="0.6" opacity="0.55"/>
+    </svg>
+    <div class="banner-overlay">
+      <div class="banner-title">Samuhik Pratishtha</div>
+      <div class="banner-title" style="font-size:18px;">at</div>
+      <div class="banner-sub">Shrimad Rajchandra Ashram, USA</div>
+    </div>
+  </div>
+
+  <div class="div-bar"><div class="div-line"></div><div class="div-line"></div></div>
+
+  <!-- Form Card -->
+  <div class="form-card">
+    <div class="fc-lbar"></div>
+    <div class="fc-rbar"></div>
+
+    <div style="height:12px;"></div>
+    <div style="font-family:'Cinzel',serif;font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:#F0E5DC;text-align:center;margin-bottom:8px;font-weight:700;">Pratishtha Request Form</div>
+    <div style="font-family:'Cinzel',serif;font-size:16px;letter-spacing:.08em;color:#F0E5DC;text-align:center;margin-bottom:24px;font-weight:600;">Please fill in your details below</div>
+
+    <div class="field-group">
+      <label class="field-label">Full Name *</label>
+      <input type="text" id="f-name" class="field-input" placeholder="Enter your full name">
+    </div>
+
+    <div class="fields-row">
+      <div class="field-group">
+        <label class="field-label">Email Address *</label>
+        <input type="email" id="f-email" class="field-input" placeholder="your@email.com">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Phone Number *</label>
+        <input type="tel" id="f-phone" class="field-input" placeholder="(000) 000-0000" maxlength="14" oninput="formatPhone(this)">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Street Address *</label>
+      <input type="text" id="f-address" class="field-input" placeholder="House / Flat no., Street name">
+    </div>
+
+    <div class="fields-row-3">
+      <div class="field-group">
+        <label class="field-label">City *</label>
+        <input type="text" id="f-city" class="field-input" placeholder="City">
+      </div>
+      <div class="field-group">
+        <label class="field-label">State *</label>
+        <input type="text" id="f-state" class="field-input" placeholder="State">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Zip Code *</label>
+        <input type="text" id="f-postal" class="field-input" placeholder="Zip Code">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Is this request for a first time Pratishtha? *</label>
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="radio" name="first_time" value="Yes">
+          <span class="checkbox-text">Yes</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="radio" name="first_time" value="No">
+          <span class="checkbox-text">No</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">Please Choose a Mission Center *</label>
+      <select id="f-center" class="field-input">
+        <option value="">— Select a center —</option>
+        <option value="Atlanta">Atlanta</option>
+        <option value="Boston">Boston</option>
+        <option value="Cherry Hill, NJ">Cherry Hill, NJ</option>
+        <option value="Edison, NJ">Edison, NJ</option>
+        <option value="Long Island, NY">Long Island, NY</option>
+        <option value="New York, NY - Youth Group">New York, NY - Youth Group</option>
+        <option value="Newark, DE">Newark, DE</option>
+        <option value="Parsippany, NJ">Parsippany, NJ</option>
+        <option value="Philadelphia, PA">Philadelphia, PA</option>
+        <option value="Princeton, NJ">Princeton, NJ</option>
+        <option value="Queens, NY">Queens, NY</option>
+        <option value="Rutherford, NJ">Rutherford, NJ</option>
+        <option value="Tampa, FL">Tampa, FL</option>
+        <option value="Washington, D.C.">Washington, D.C.</option>
+      </select>
+    </div>
+
+    <div class="submit-wrap">
+      <button class="submit-btn" id="submit-btn" onclick="submitForm()">Submit Request</button>
+    </div>
+    <div class="form-message" id="form-message"></div>
+  </div>
+
+</div>
+<script>
+  var SCRIPT_URL="https://script.google.com/macros/s/AKfycbwjr0gdD4xLrtPHJNaK8T4_yXZtiRujfFwIUGy5iSDqjrh4Y9jaF4g1okhZeY9GM_O9/exec";
+
+  function formatPhone(input){
+    var d=input.value.replace(/\D/g,'').substring(0,10);
+    if(d.length>=7) input.value='('+d.substring(0,3)+') '+d.substring(3,6)+'-'+d.substring(6);
+    else if(d.length>=4) input.value='('+d.substring(0,3)+') '+d.substring(3);
+    else if(d.length>0) input.value='('+d;
+    else input.value='';
+  }
+
+  function submitForm(){
+    var btn=document.getElementById('submit-btn');
+    var msg=document.getElementById('form-message');
+    var name=document.getElementById('f-name').value.trim();
+    var email=document.getElementById('f-email').value.trim();
+    var phone=document.getElementById('f-phone').value.trim();
+    var address=document.getElementById('f-address').value.trim();
+    var city=document.getElementById('f-city').value.trim();
+    var state=document.getElementById('f-state').value.trim();
+    var postal=document.getElementById('f-postal').value.trim();
+    var center=document.getElementById('f-center').value;
+    var firstTime=document.querySelector('input[name="first_time"]:checked');
+    if(!name||!email||!phone||!address||!city||!state||!postal||!center||!firstTime){
+      msg.className='form-message error';
+      msg.style.display='block';
+      msg.textContent='Please fill in all required fields before submitting.';
+      return;
+    }
+    btn.disabled=true;
+    btn.textContent='Submitting...';
+    msg.style.display='none';
+    var fd=new FormData();
+    fd.append('name',name);fd.append('email',email);fd.append('phone',phone);
+    fd.append('address',address);fd.append('city',city);fd.append('state',state);
+    fd.append('postal',postal);fd.append('center',center);fd.append('firstTime',firstTime.value);
+    fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:fd})
+    .then(function(){
+      btn.disabled=false;
+      btn.textContent='Request Submitted';
+      msg.className='form-message success';
+      msg.style.display='block';
+      msg.innerHTML='<div style="text-align:center;">Jai Prabhu! Your Pratishtha request has been received.<br>We will be in touch.</div>';
+      ['f-name','f-email','f-phone','f-address','f-city','f-state','f-postal','f-center'].forEach(function(id){document.getElementById(id).value='';});
+      document.querySelectorAll('input[name="first_time"]').forEach(function(r){r.checked=false;});
+    })
+    .catch(function(err){
+      btn.disabled=false;
+      btn.textContent='Submit Request';
+      msg.className='form-message error';
+      msg.style.display='block';
+      msg.textContent='Something went wrong: '+err.message;
+    });
+  }
+</script>
+</body>
+</html>
